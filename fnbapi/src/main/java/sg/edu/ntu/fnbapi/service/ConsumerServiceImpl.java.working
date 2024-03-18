@@ -1,0 +1,18 @@
+package sg.edu.ntu.fnbapi.service;
+
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
+
+import sg.edu.ntu.fnbapi.repository.ConsumerRepository;
+import sg.edu.ntu.fnbapi.repository.FavouriteRepository;
+
+@Primary
+@Service
+public class ConsumerServiceImpl implements ConsumerService{
+    
+    private ConsumerRepository consumerRepository;
+    private FavouriteRepository favouriteRepository;
+
+    //implement ConsumerService methods
+
+}
