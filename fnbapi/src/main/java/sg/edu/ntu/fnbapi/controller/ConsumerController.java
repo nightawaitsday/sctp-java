@@ -1,13 +1,86 @@
 package sg.edu.ntu.fnbapi.controller;
 
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import sg.edu.ntu.fnbapi.entity.Consumer;
+import sg.edu.ntu.fnbapi.entity.Favourite;
+import sg.edu.ntu.fnbapi.service.ConsumerService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PutMapping;
+
+
+
 
 @RestController
 @RequestMapping("/consumers")
 public class ConsumerController {
     
+    private ConsumerService consumerService;
+
     //constructor injection
+    @Autowired
+    public ConsumerController(ConsumerService consumerService) {
+        this.consumerService = consumerService;
+    }
 
     //CRUD
+
+    //Create
+    @PostMapping("")
+    public ResponseEntity<Consumer> createConsumer(@RequestBody Consumer consumer) {
+        Consumer newConsumer = consumerService.createConsumer(consumer);
+
+        return new ResponseEntity<>(newConsumer, HttpStatus.CREATED);
+    }
+
+    //Read
+    @GetMapping("")
+    public ResponseEntity<ArrayList<Consumer>> getAllConsumers() {
+        ArrayList<Consumer> allConsumers = consumerService.getAllConsumers();
+        
+        return new ResponseEntity<>(allConsumers, HttpStatus.OK);
+    }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<Consumer> getConsumer(@PathVariable Long id) {
+        Consumer foundConsumer = consumerService.getConsumer(id);
+        
+        return new ResponseEntity<>(foundConsumer, HttpStatus.OK);
+    }
+
+    //Update
+    @PutMapping("/{id}")
+    public ResponseEntity<Consumer> updateConsumer(@PathVariable Long id, @RequestBody Consumer consumer) {
+        Consumer updatedConsumer = consumerService.updateConsumer(id, consumer);
+
+        return new ResponseEntity<>(updatedConsumer, HttpStatus.OK);
+    }
+    
+    //Delete
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Consumer> deleteConsumer(@PathVariable Long id) {
+        consumerService.deleteConsumer(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping("/{id}/favourites")
+    public ResponseEntity<Favourite> allFavouriteToConsumer(@PathVariable Long id, @RequestBody Favourite favourite) {
+        
+        Favourite newFavourite = consumerService.addFavouriteToConsumer(id, favourite);
+        return new ResponseEntity<>(newFavourite, HttpStatus.OK);
+        
+    }
+    
+    
 }

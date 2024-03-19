@@ -36,10 +36,10 @@ public class Favourite {
     @Column(name = "remarks")
     private String remarks;
 
-    @JsonBackReference
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
-    private Restaurant restaurant;
+    // @JsonBackReference
+    // @ManyToOne(optional = false)
+    // @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
+    // private Restaurant restaurant;
 
     @JsonBackReference
     @ManyToOne(optional = false)
