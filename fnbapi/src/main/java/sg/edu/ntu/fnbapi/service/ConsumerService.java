@@ -6,11 +6,11 @@ import sg.edu.ntu.fnbapi.entity.Consumer;
 import sg.edu.ntu.fnbapi.entity.Favourite;
 
 public interface ConsumerService {
-    ArrayList<Consumer> searchCustomers(String firstName);
-    Consumer createCustomer(Consumer consumer);
-    Consumer getCustomer(Long id);
-    ArrayList<Consumer> getAllCustomers();
-    Consumer updateCustomer(Long id, Consumer consumer);
-    void deleteCustomer(Long id);
-    Favourite addFavouriteToCustomer(Long id, Favourite favourite);
+    // ArrayList<Consumer> searchConsumers(String firstName);
+    Consumer createConsumer(Consumer consumer);
+    Consumer getConsumer(Long id);
+    ArrayList<Consumer> getAllConsumers();
+    Consumer updateConsumer(Long id, Consumer consumer);
+    void deleteConsumer(Long id);
+    Favourite addFavouriteToConsumer(Long id, Favourite favourite);
 } 
