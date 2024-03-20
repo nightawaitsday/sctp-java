@@ -1,15 +1,12 @@
 package sg.edu.ntu.fnbapi.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,7 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Restaurant {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -33,12 +30,21 @@ public class Restaurant {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "rating") 
+    @Column(name = "rating")
     private int rating;
+
+    @Column(name = "cuisine")
+    private String cuisine;
+
+    // Add this if you want a one-to-many relationship with Favourite
+    // @OneToMany(mappedBy = "restaurant")
+    // private List<Favourite> favourites;
 
     public Restaurant(String restaurantName, String restaurantType) {
         this.restaurantName = restaurantName;
-        this.restaurantType =restaurantType;
+        this.restaurantType = restaurantType;
+        this.address = address;
+        this.rating = rating;
+        this.cuisine = cuisine;
     }
-
 }
