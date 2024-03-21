@@ -6,8 +6,11 @@ import sg.edu.ntu.fnbapi.entity.Favourite;
 
 public interface FavouriteService {
 
-    Favourite createFavourite(Favourite favourite);
-    Favourite getFavourite(Long id);
-    // ArrayList<Favourite> getAllFavourites();
-    // void deleteFavourite(Long id);
-} 
+    // CREATE
+    Favourite createFavourite(Long restaurantId, Long consumerId);
+
+    // DELETE By RESTAURANT ID
+    void deleteFavourite(Long id);
+
+    // Todo: update and read
+}

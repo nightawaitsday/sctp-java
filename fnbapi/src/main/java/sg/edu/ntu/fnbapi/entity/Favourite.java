@@ -24,7 +24,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Favourite {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -33,13 +33,13 @@ public class Favourite {
     // @Column(name = "added_date")
     // private LocalDate addedDate;
 
-    @Column(name = "remarks")
-    private String remarks;
+    // @Column(name = "remarks")
+    // private String remarks;
 
-    // @JsonBackReference
-    // @ManyToOne(optional = false)
-    // @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
-    // private Restaurant restaurant;
+    @JsonBackReference
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
+    private Restaurant restaurant;
 
     @JsonBackReference
     @ManyToOne(optional = false)
