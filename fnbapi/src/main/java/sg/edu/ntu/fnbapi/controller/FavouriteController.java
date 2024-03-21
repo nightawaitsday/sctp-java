@@ -29,12 +29,17 @@ public class FavouriteController {
 
     //CRUD
 
+    // Xinyu Amend start 
     // CREATE
-    @PostMapping("")
+    @PostMapping("/favourites")
     public ResponseEntity<Favourite> createFavourite(@Valid @RequestBody Favourite favourite) {
         Favourite newFavourite = favouriteService.createFavourite(favourite);
         return new ResponseEntity<>(newFavourite, HttpStatus.CREATED);
     }
+    /* 
+     1. Do the favouriteService.createFavourite that should jointhat should return the newFavourite object
+     2. To check how to get 2 objects using @Valid or smt? 
+     */
 
     // READ (GET ONE)
     @GetMapping("/{id}")
