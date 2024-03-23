@@ -1,8 +1,11 @@
 package sg.edu.ntu.fnbapi.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import sg.edu.ntu.fnbapi.entity.Favourite;
+import sg.edu.ntu.fnbapi.entity.FavouriteKey;
+import sg.edu.ntu.fnbapi.entity.Restaurant;
 
 public interface FavouriteService {
 
@@ -10,7 +13,7 @@ public interface FavouriteService {
     Favourite createFavourite(Long restaurantId, Long consumerId);
 
     // DELETE By RESTAURANT ID
-    void deleteFavourite(Long id);
+    // void deleteFavourite(FavouriteKey id);
 
-    // Todo: update and read
+    void removeFavoriteFromConsumer(Long restaurantId, Long consumerId);
 }

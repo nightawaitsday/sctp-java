@@ -37,13 +37,21 @@ public class FavouriteController {
     }
 
     // DELETE
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Favourite> deleteFavourite(@PathVariable Long id) {
-        try {
-            favouriteService.deleteFavourite(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (FavouriteNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    // @DeleteMapping("/{id}")
+    // public ResponseEntity<Favourite> deleteFavourite(@PathVariable Long id) {
+    //     try {
+    //         favouriteService.deleteFavourite(id);
+    //         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    //     } catch (FavouriteNotFoundException e) {
+    //         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    //     }
+    // }
+
+
+    // DELETE
+    @DeleteMapping("/{consumerId}/{restaurantId}")
+    public ResponseEntity<Void> removeFavoriteFromConsumer(@PathVariable Long restaurantId, @PathVariable Long consumerId) {
+        favouriteService.removeFavoriteFromConsumer(restaurantId, consumerId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

@@ -1,6 +1,7 @@
 package sg.edu.ntu.fnbapi.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import jakarta.persistence.EntityNotFoundException;
 import sg.edu.ntu.fnbapi.entity.Consumer;
 import sg.edu.ntu.fnbapi.entity.Favourite;
+import sg.edu.ntu.fnbapi.entity.FavouriteKey;
 import sg.edu.ntu.fnbapi.entity.Restaurant;
 import sg.edu.ntu.fnbapi.exception.ConsumerNotFoundException;
 import sg.edu.ntu.fnbapi.exception.FavouriteNotFoundException;
@@ -40,15 +42,31 @@ public class FavouriteServiceImpl implements FavouriteService {
         Consumer consumer = consumerRepository.findById(consumerId)
                 .orElseThrow(() -> new ConsumerNotFoundException(consumerId));
 
+        FavouriteKey favouriteKey = new FavouriteKey(restaurantId, consumerId); // Provide appropriate restaurantId and consumerId
+
         Favourite favourite = new Favourite();
+        favourite.setId(favouriteKey);
         favourite.setRestaurant(restaurant);
         favourite.setConsumer(consumer);
 
         return favouriteRepository.save(favourite);
     }
 
+    // @Override
+    // public void deleteFavourite(FavouriteKey id) {
+    //     favouriteRepository.deleteById(id);
+    // }
+
     @Override
-    public void deleteFavourite(Long id) {
-        favouriteRepository.deleteById(id);
+    public void removeFavoriteFromConsumer(Long restaurantId, Long consumerId)  {
+        // Fetch the Consumer entity from the database
+        Consumer consumer = consumerRepository.findById(consumerId)
+        .orElseThrow(() -> new EntityNotFoundException("Consumer not found with id: " + consumerId));
+
+        // Remove the favorite with the specified restaurantId from the Consumer's favorite list
+        consumer.getFavourites().removeIf(favourite -> favourite.getRestaurant().getId().equals(restaurantId));
+
+        // Update the Consumer entity in the database
+        consumerRepository.save(consumer);
     }
 }
