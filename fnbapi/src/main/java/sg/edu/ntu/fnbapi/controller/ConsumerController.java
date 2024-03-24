@@ -2,6 +2,7 @@ package sg.edu.ntu.fnbapi.controller;
 
 import java.util.ArrayList;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import sg.edu.ntu.fnbapi.entity.Consumer;
 import sg.edu.ntu.fnbapi.entity.Favourite;
+import sg.edu.ntu.fnbapi.entity.Restaurant;
 import sg.edu.ntu.fnbapi.service.ConsumerService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -71,12 +73,19 @@ public class ConsumerController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("/{id}/favourites")
-    public ResponseEntity<Favourite> allFavouriteToConsumer(@PathVariable Long id, @RequestBody Favourite favourite) {
+    // @PostMapping("/{id}/favourites")
+    // public ResponseEntity<Favourite> allFavouriteToConsumer(@PathVariable Long id, @RequestBody Favourite favourite) {
+        
+    //     Favourite newFavourite = consumerService.addFavouriteToConsumer(id, favourite);
+    //     return new ResponseEntity<>(newFavourite, HttpStatus.OK);
+        
+    // }
 
-        Favourite newFavourite = consumerService.addFavouriteToConsumer(id, favourite);
-        return new ResponseEntity<>(newFavourite, HttpStatus.OK);
-
+    @GetMapping("/{id}/favourites")
+    public ResponseEntity<List<Restaurant>> getFavouriteRestaurantsByConsumerId(@PathVariable Long id) {
+        List<Restaurant> favouriteRestaurants = consumerService.getFavouritesByConsumerId(id);
+        return new ResponseEntity<>(favouriteRestaurants, HttpStatus.OK);
     }
-
+    
+    
 }

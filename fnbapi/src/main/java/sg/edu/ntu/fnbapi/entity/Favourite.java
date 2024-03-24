@@ -5,12 +5,14 @@ import java.time.LocalDate;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,10 +27,14 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Favourite {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EmbeddedId
     @Column(name = "id")
-    private Long id;
+    private FavouriteKey id;
+
+    // @Id
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @Column(name = "id")
+    // private Long id;
 
     // @Column(name = "added_date")
     // private LocalDate addedDate;
@@ -38,11 +44,13 @@ public class Favourite {
 
     @JsonBackReference
     @ManyToOne(optional = false)
+    @MapsId("restaurantId")
     @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
     private Restaurant restaurant;
 
     @JsonBackReference
     @ManyToOne(optional = false)
+    @MapsId("consumerId")
     @JoinColumn(name = "consumer_id", referencedColumnName = "id")
     private Consumer consumer;
 
