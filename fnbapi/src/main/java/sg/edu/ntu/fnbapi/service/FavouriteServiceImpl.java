@@ -1,5 +1,8 @@
 package sg.edu.ntu.fnbapi.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,23 +20,18 @@ import sg.edu.ntu.fnbapi.exception.ConsumerNotFoundException;
 import sg.edu.ntu.fnbapi.exception.FavouriteNotFoundException;
 import sg.edu.ntu.fnbapi.repository.ConsumerRepository;
 import sg.edu.ntu.fnbapi.repository.FavouriteRepository;
-import sg.edu.ntu.fnbapi.repository.RestaurantRepository;
 
 @Primary
 @Service
 public class FavouriteServiceImpl implements FavouriteService {
 
     private FavouriteRepository favouriteRepository;
-    private RestaurantRepository restaurantRepository;
-    private ConsumerRepository consumerRepository;
 
     @Autowired
-    public FavouriteServiceImpl(FavouriteRepository favouriteRepository, RestaurantRepository restaurantRepository,
-            ConsumerRepository consumerRepository) {
+    public FavouriteServiceImpl(FavouriteRepository favouriteRepository) {
+
+
         this.favouriteRepository = favouriteRepository;
-        this.restaurantRepository = restaurantRepository;
-        this.consumerRepository = consumerRepository;
-    }
 
     // CREATE
     public Favourite createFavourite(Long restaurantId, Long consumerId) {
@@ -68,5 +66,6 @@ public class FavouriteServiceImpl implements FavouriteService {
 
         // Update the Consumer entity in the database
         consumerRepository.save(consumer);
+
     }
 }

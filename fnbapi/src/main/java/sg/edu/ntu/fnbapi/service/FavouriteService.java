@@ -1,5 +1,8 @@
 package sg.edu.ntu.fnbapi.service;
 
+
+public interface FavouriteService {
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,4 +19,5 @@ public interface FavouriteService {
     // void deleteFavourite(FavouriteKey id);
 
     void removeFavoriteFromConsumer(Long restaurantId, Long consumerId);
+
 }

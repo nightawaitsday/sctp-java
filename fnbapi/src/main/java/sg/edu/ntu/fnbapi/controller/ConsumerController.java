@@ -21,24 +21,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PutMapping;
 
-
-
-
 @RestController
 @RequestMapping("/consumers")
 public class ConsumerController {
-    
+
     private ConsumerService consumerService;
 
-    //constructor injection
+    // constructor injection
     @Autowired
     public ConsumerController(ConsumerService consumerService) {
         this.consumerService = consumerService;
     }
 
-    //CRUD
+    // CRUD
 
-    //Create
+    // Create
     @PostMapping("")
     public ResponseEntity<Consumer> createConsumer(@RequestBody Consumer consumer) {
         Consumer newConsumer = consumerService.createConsumer(consumer);
@@ -46,30 +43,30 @@ public class ConsumerController {
         return new ResponseEntity<>(newConsumer, HttpStatus.CREATED);
     }
 
-    //Read
+    // Read
     @GetMapping("")
     public ResponseEntity<ArrayList<Consumer>> getAllConsumers() {
         ArrayList<Consumer> allConsumers = consumerService.getAllConsumers();
-        
+
         return new ResponseEntity<>(allConsumers, HttpStatus.OK);
     }
-    
+
     @GetMapping("/{id}")
     public ResponseEntity<Consumer> getConsumer(@PathVariable Long id) {
         Consumer foundConsumer = consumerService.getConsumer(id);
-        
+
         return new ResponseEntity<>(foundConsumer, HttpStatus.OK);
     }
 
-    //Update
+    // Update
     @PutMapping("/{id}")
     public ResponseEntity<Consumer> updateConsumer(@PathVariable Long id, @RequestBody Consumer consumer) {
         Consumer updatedConsumer = consumerService.updateConsumer(id, consumer);
 
         return new ResponseEntity<>(updatedConsumer, HttpStatus.OK);
     }
-    
-    //Delete
+
+    // Delete
     @DeleteMapping("/{id}")
     public ResponseEntity<Consumer> deleteConsumer(@PathVariable Long id) {
         consumerService.deleteConsumer(id);
