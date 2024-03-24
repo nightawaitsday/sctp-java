@@ -9,5 +9,4 @@ public class FnbapiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FnbapiApplication.class, args);
 	}
-
 }

@@ -46,4 +46,9 @@ public class Favourite {
     @JoinColumn(name = "consumer_id", referencedColumnName = "id")
     private Consumer consumer;
 
+    /** Create Entity **/
+    public Favourite(Consumer consumer, Restaurant restaurant) {
+        this.consumer = consumer;
+        this.restaurant = restaurant;
+    }
 }

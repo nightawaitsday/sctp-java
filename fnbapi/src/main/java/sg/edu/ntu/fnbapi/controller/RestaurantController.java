@@ -49,4 +49,12 @@ public class RestaurantController {
         restaurantService.deleteRestaurant(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    /** Create Favourite **/
+    @PostMapping("/{restaurantId}/favourite")
+    public boolean favourite(@PathVariable Long restaurantId, @RequestParam Long consumerId) {
+        // true -> save, false -> delete
+        return restaurantService.createFavourite(restaurantId, consumerId);
+    }
+
 }
