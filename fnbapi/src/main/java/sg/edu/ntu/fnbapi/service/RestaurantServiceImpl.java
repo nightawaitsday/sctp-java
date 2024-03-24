@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import jakarta.persistence.EntityNotFoundException;
 import sg.edu.ntu.fnbapi.entity.Consumer;
 import sg.edu.ntu.fnbapi.entity.Favourite;
+import sg.edu.ntu.fnbapi.entity.FavouriteKey;
 import sg.edu.ntu.fnbapi.entity.Restaurant;
 import sg.edu.ntu.fnbapi.exception.ConsumerNotFoundException;
 import sg.edu.ntu.fnbapi.exception.RestaurantNotFoundException;
@@ -78,13 +79,17 @@ public class RestaurantServiceImpl implements RestaurantService {
                     .orElseThrow(() -> new ConsumerNotFoundException(consumerId));
 
             // Create Favourite Entity
-            Favourite favourite = new Favourite(consumer, restaurant);
+            FavouriteKey favouriteKey = new FavouriteKey(restaurantId, consumerId);
+            Favourite favourite = new Favourite(favouriteKey, consumer, restaurant);
             favouriteRepository.save(favourite);
 
             return true;
         } else {
             // if liked, delete and return false
-            favouriteRepository.deleteByRestaurant_IdAndConsumer_Id(restaurantId, consumerId);
+            // favouriteRepository.deleteByRestaurant_IdAndConsumer_Id(restaurantId,
+            // consumerId);
+            FavouriteKey favouriteKey = new FavouriteKey(restaurantId, consumerId);
+            favouriteRepository.deleteById(favouriteKey);
 
             return false;
         }
@@ -93,7 +98,8 @@ public class RestaurantServiceImpl implements RestaurantService {
     /** Check Favourite **/
     @Override
     public boolean checkFavourite(Long restaurantId, Long consumerId) {
-        return favouriteRepository.existsByRestaurant_IdAndConsumer_Id(restaurantId, consumerId);
+        FavouriteKey favouriteKey = new FavouriteKey(restaurantId, consumerId);
+        return favouriteRepository.existsById(favouriteKey);
     }
 
 }

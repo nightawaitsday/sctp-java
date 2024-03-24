@@ -25,17 +25,20 @@ public class FavouriteController {
     }
 
     // CREATE
-    @PostMapping("")
-    public ResponseEntity<Favourite> createFavourite(@RequestParam Long restaurantId, @RequestParam Long consumerId) {
-        Favourite newFavourite = favouriteService.createFavourite(restaurantId, consumerId);
-        return new ResponseEntity<>(newFavourite, HttpStatus.CREATED);
-    }
+    // @PostMapping("")
+    // public ResponseEntity<Favourite> createFavourite(@RequestParam Long
+    // restaurantId, @RequestParam Long consumerId) {
+    // Favourite newFavourite = favouriteService.createFavourite(restaurantId,
+    // consumerId);
+    // return new ResponseEntity<>(newFavourite, HttpStatus.CREATED);
+    // }
 
     // DELETE
-    @DeleteMapping("/{consumerId}/{restaurantId}")
-    public ResponseEntity<Void> removeFavoriteFromConsumer(@PathVariable Long restaurantId,
-            @PathVariable Long consumerId) {
-        favouriteService.removeFavoriteFromConsumer(restaurantId, consumerId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+    // @DeleteMapping("/{consumerId}/{restaurantId}")
+    // public ResponseEntity<Void> removeFavoriteFromConsumer(@PathVariable Long
+    // restaurantId,
+    // @PathVariable Long consumerId) {
+    // favouriteService.removeFavoriteFromConsumer(restaurantId, consumerId);
+    // return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    // }
 }

@@ -55,7 +55,8 @@ public class Favourite {
     private Consumer consumer;
 
     /** Create Entity **/
-    public Favourite(Consumer consumer, Restaurant restaurant) {
+    public Favourite(FavouriteKey id, Consumer consumer, Restaurant restaurant) {
+        this.id = id;
         this.consumer = consumer;
         this.restaurant = restaurant;
     }
