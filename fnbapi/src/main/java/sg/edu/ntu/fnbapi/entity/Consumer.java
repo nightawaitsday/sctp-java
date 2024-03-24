@@ -39,7 +39,11 @@ public class Consumer {
     private String email;
 
     @OneToMany(mappedBy = "consumer")
-    private List<Favourite> favourite;
+    private List<Favourite> favourites;
+
+    public List<Favourite> getFavourites() {
+        return favourites;
+    }
 
     public Consumer(String firstName, String lastName, String email) {
         this.firstName = firstName;
