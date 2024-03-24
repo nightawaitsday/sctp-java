@@ -39,29 +39,6 @@ public class FavouriteServiceImpl implements FavouriteService {
         this.consumerRepository = consumerRepository;
     }
 
-    // CREATE
-    public Favourite createFavourite(Long restaurantId, Long consumerId) {
-        Restaurant restaurant = restaurantRepository.findById(restaurantId)
-                .orElseThrow(() -> new EntityNotFoundException("Restaurant not found with id: " + restaurantId));
-        Consumer consumer = consumerRepository.findById(consumerId)
-                .orElseThrow(() -> new ConsumerNotFoundException(consumerId));
-
-        FavouriteKey favouriteKey = new FavouriteKey(restaurantId, consumerId); // Provide appropriate restaurantId and
-                                                                                // consumerId
-
-        Favourite favourite = new Favourite();
-        favourite.setId(favouriteKey);
-        favourite.setRestaurant(restaurant);
-        favourite.setConsumer(consumer);
-
-        return favouriteRepository.save(favourite);
-    }
-
-    // @Override
-    // public void deleteFavourite(FavouriteKey id) {
-    // favouriteRepository.deleteById(id);
-    // }
-
     @Override
     public void removeFavoriteFromConsumer(Long restaurantId, Long consumerId) {
         // Fetch the Consumer entity from the database
@@ -76,4 +53,5 @@ public class FavouriteServiceImpl implements FavouriteService {
         consumerRepository.save(consumer);
 
     }
+
 }
