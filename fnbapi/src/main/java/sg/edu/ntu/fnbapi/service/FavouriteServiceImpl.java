@@ -20,18 +20,24 @@ import sg.edu.ntu.fnbapi.exception.ConsumerNotFoundException;
 import sg.edu.ntu.fnbapi.exception.FavouriteNotFoundException;
 import sg.edu.ntu.fnbapi.repository.ConsumerRepository;
 import sg.edu.ntu.fnbapi.repository.FavouriteRepository;
+import sg.edu.ntu.fnbapi.repository.RestaurantRepository;
 
 @Primary
 @Service
 public class FavouriteServiceImpl implements FavouriteService {
 
     private FavouriteRepository favouriteRepository;
+    private RestaurantRepository restaurantRepository;
+    private ConsumerRepository consumerRepository;
 
     @Autowired
-    public FavouriteServiceImpl(FavouriteRepository favouriteRepository) {
-
+    public FavouriteServiceImpl(FavouriteRepository favouriteRepository, RestaurantRepository restaurantRepository,
+            ConsumerRepository consumerRepository) {
 
         this.favouriteRepository = favouriteRepository;
+        this.restaurantRepository = restaurantRepository;
+        this.consumerRepository = consumerRepository;
+    }
 
     // CREATE
     public Favourite createFavourite(Long restaurantId, Long consumerId) {
@@ -40,7 +46,8 @@ public class FavouriteServiceImpl implements FavouriteService {
         Consumer consumer = consumerRepository.findById(consumerId)
                 .orElseThrow(() -> new ConsumerNotFoundException(consumerId));
 
-        FavouriteKey favouriteKey = new FavouriteKey(restaurantId, consumerId); // Provide appropriate restaurantId and consumerId
+        FavouriteKey favouriteKey = new FavouriteKey(restaurantId, consumerId); // Provide appropriate restaurantId and
+                                                                                // consumerId
 
         Favourite favourite = new Favourite();
         favourite.setId(favouriteKey);
@@ -52,16 +59,17 @@ public class FavouriteServiceImpl implements FavouriteService {
 
     // @Override
     // public void deleteFavourite(FavouriteKey id) {
-    //     favouriteRepository.deleteById(id);
+    // favouriteRepository.deleteById(id);
     // }
 
     @Override
-    public void removeFavoriteFromConsumer(Long restaurantId, Long consumerId)  {
+    public void removeFavoriteFromConsumer(Long restaurantId, Long consumerId) {
         // Fetch the Consumer entity from the database
         Consumer consumer = consumerRepository.findById(consumerId)
-        .orElseThrow(() -> new EntityNotFoundException("Consumer not found with id: " + consumerId));
+                .orElseThrow(() -> new EntityNotFoundException("Consumer not found with id: " + consumerId));
 
-        // Remove the favorite with the specified restaurantId from the Consumer's favorite list
+        // Remove the favorite with the specified restaurantId from the Consumer's
+        // favorite list
         consumer.getFavourites().removeIf(favourite -> favourite.getRestaurant().getId().equals(restaurantId));
 
         // Update the Consumer entity in the database
