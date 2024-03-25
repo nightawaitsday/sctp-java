@@ -14,11 +14,11 @@ public interface FavouriteService {
     void deleteFavourite(Long id);
 
     // READ 1
-    FavouriteDetails getFavouriteDetails(Long id, Long restaurantId);
+    Favourite getFavouriteDetails(Long id, Long restaurantId);
 
 
     // READ 2
-    FavouriteRestauratList getFavouriteRestaurantList (Long id);  
+    // FavouriteRestauratList getFavouriteRestaurantList (Long id);  
 
 
     // Todo: update 

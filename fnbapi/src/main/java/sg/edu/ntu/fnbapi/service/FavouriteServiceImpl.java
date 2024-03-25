@@ -18,6 +18,7 @@ import sg.edu.ntu.fnbapi.entity.FavouriteKey;
 import sg.edu.ntu.fnbapi.entity.Restaurant;
 import sg.edu.ntu.fnbapi.exception.ConsumerNotFoundException;
 import sg.edu.ntu.fnbapi.exception.FavouriteNotFoundException;
+import sg.edu.ntu.fnbapi.exception.RestaurantNotFoundException;
 import sg.edu.ntu.fnbapi.repository.ConsumerRepository;
 import sg.edu.ntu.fnbapi.repository.FavouriteRepository;
 import sg.edu.ntu.fnbapi.repository.RestaurantRepository;
@@ -55,16 +56,21 @@ public class FavouriteServiceImpl implements FavouriteService {
     
 
     @Override
-    public FavouriteDetails getFavouriteDetails(Long id, Long restaurantId) {
-        Favourite favourite = favouriteRepository.findByIdAndRestaurantId(id, restaurantId)
-                .orElseThrow(() -> new FavouriteNotFoundException(id, restaurantId));
+    public Favourite getFavouriteDetails(Long id, Long restaurantId) {
+        
+        Consumer consumer = consumerRepository.findById(id)
+                .orElseThrow(() -> new ConsumerNotFoundException(id));
 
         // Fetch the associated restaurant
         Restaurant restaurant = restaurantRepository.findById(restaurantId)
                 .orElseThrow(() -> new RestaurantNotFoundException(restaurantId));
 
-        return new FavouriteDetails(id, restaurant);
+        FavouriteKey favouriteKey = new FavouriteKey(id, restaurantId);
+
+        return new Favourite(favouriteKey, consumer, restaurant);
     }
+
+
 
 
     // // READ 1
@@ -79,24 +85,24 @@ public class FavouriteServiceImpl implements FavouriteService {
 
 
     // READ 2 
-    @Override
-    public List<FavouriteRestaurantList> getFavouriteRestaurantList(Long id) {
+    // @Override
+    // public List<FavouriteRestaurantList> getFavouriteRestaurantList(Long id) {
 
 
-        List<Favourite> favouriteList = favouriteRepository.findByUserId(id);
+    //     List<Favourite> favouriteList = favouriteRepository.findByUserId(id);
         
-        // List<Favourite> FavouriteList = favouriteRepository.findAll();
-        ArrayList<FavouriteRestaurantList> favouriteRestaurantList = new ArrayList<>();        
+    //     // List<Favourite> FavouriteList = favouriteRepository.findAll();
+    //     ArrayList<FavouriteRestaurantList> favouriteRestaurantList = new ArrayList<>();        
 
-        for (Favourite favourite : favouriteList) {
-            Long restaurantId = favourite.getRestaurantId();
-            Restaurant restaurant = restaurantRepository.findById(restaurantId)
-                    .orElseThrow(() -> new RestaurantNotFoundException(restaurantId));
-            favouriteRestaurantList.add(new FavouriteRestaurantList(favourite, restaurant));
-        }
+    //     for (Favourite favourite : favouriteList) {
+    //         Long restaurantId = favourite.getRestaurantId();
+    //         Restaurant restaurant = restaurantRepository.findById(restaurantId)
+    //                 .orElseThrow(() -> new RestaurantNotFoundException(restaurantId));
+    //         favouriteRestaurantList.add(new FavouriteRestaurantList(favourite, restaurant));
+    //     }
 
-        return favouriteRestaurantList;
-    }
+    //     return favouriteRestaurantList;
+    // }
 
 
 
