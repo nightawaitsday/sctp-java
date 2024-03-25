@@ -53,11 +53,11 @@ public class FavouriteController {
 
     // READ 1 REFACTOR 
     @GetMapping("/consumer/{id}/favourites/{restaurantId}")
-    public ResponseEntity<FavouriteDetails> getFavouriteDetails(
+    public ResponseEntity<Favourite> getFavouriteDetails(
         @PathVariable Long id,
         @PathVariable Long restaurantId) {
 
-        FavouriteDetails favouriteDetails = favouriteService.getFavouriteDetails(id, restaurantId);
+            Favourite favouriteDetails = favouriteService.getFavouriteDetails(id, restaurantId);
 
         if (favouriteDetails != null) {
             return new ResponseEntity<>(favouriteDetails, HttpStatus.OK);
@@ -71,23 +71,23 @@ public class FavouriteController {
 
 
     
-    // READ 2 RETRIEVE ALL FAVOURITES FOR THE USERID 
-    // get the restaurant ids then use that to retrieve from restaurant and return api a list of RESTAURANTS
-    @GetMapping("/consumer/{id}/favourites")
-    public ResponseEntity<List<FavouriteRestauratList>> getFavouriteRestaurantList(
-        @PathVariable Long id) {
+    // // READ 2 RETRIEVE ALL FAVOURITES FOR THE USERID 
+    // // get the restaurant ids then use that to retrieve from restaurant and return api a list of RESTAURANTS
+    // @GetMapping("/consumer/{id}/favourites")
+    // public ResponseEntity<List<FavouriteRestauratList>> getFavouriteRestaurantList(
+    //     @PathVariable Long id) {
 
-            List<Favourite> favouriteList = favouriteService.getFavouritesByUserId(id);
+    //         List<Favourite> favouriteList = favouriteService.getFavouritesByUserId(id);
 
-            List<FavouriteRestaurantList> favouriteRestaurantList = favouriteService.getFavouriteRestaurantList(id);
+    //         List<FavouriteRestaurantList> favouriteRestaurantList = favouriteService.getFavouriteRestaurantList(id);
 
-            if (favouriteRestaurantList != null) {
-                return new ResponseEntity<>(favouriteList, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
+    //         if (favouriteRestaurantList != null) {
+    //             return new ResponseEntity<>(favouriteList, HttpStatus.OK);
+    //         } else {
+    //             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    //         }
 
-        }
+    //     }
     
 
 
