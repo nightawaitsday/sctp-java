@@ -90,6 +90,22 @@ public class ConsumerController {
         return new ResponseEntity<>(favouriteRestaurants, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}/favourites/{restaurantId}")
+    public ResponseEntity<Favourite> getFavouriteDetails(
+            @PathVariable Long id,
+            @PathVariable Long restaurantId) {
+
+        Favourite favouriteDetails = consumerService.getFavouriteDetails(id, restaurantId);
+
+        if (favouriteDetails != null) {
+            return new ResponseEntity<>(favouriteDetails, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+
     /** Create Favourite : Like a restaurant **/
     @PostMapping("/{consumerId}/favourites/{restaurantId}")
     public ResponseEntity<Favourite> createFavourite(@PathVariable Long consumerId, @PathVariable Long restaurantId) {

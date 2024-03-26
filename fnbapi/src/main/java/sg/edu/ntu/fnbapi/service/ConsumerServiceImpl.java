@@ -104,6 +104,22 @@ public class ConsumerServiceImpl implements ConsumerService {
 
     }
 
+    // GET RESTAURANT FOR CONSUMER ID
+    @Override
+    public Favourite getFavouriteDetails(Long id, Long restaurantId) {
+
+        Consumer consumer = consumerRepository.findById(id)
+                .orElseThrow(() -> new ConsumerNotFoundException(id));
+
+        // Fetch the associated restaurant
+        Restaurant restaurant = restaurantRepository.findById(restaurantId)
+                .orElseThrow(() -> new RestaurantNotFoundException(restaurantId));
+
+        FavouriteKey favouriteKey = new FavouriteKey(id, restaurantId);
+
+        return new Favourite(favouriteKey, consumer, restaurant);
+    }
+
     /** Create Favourite **/
     @Override
     public Favourite createFavourite(Long consumerId, Long restaurantId) {

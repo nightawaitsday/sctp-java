@@ -15,8 +15,9 @@ public class DataLoader {
     private FavouriteRepository favouriteRepository;
 
     @Autowired
-    public DataLoader(ConsumerRepository consumerRepository, RestaurantRepository restaurantRepository,
-            FavouriteRepository favouriteRepository) {
+    public DataLoader(ConsumerRepository consumerRepository, RestaurantRepository restaurantRepository
+            , FavouriteRepository favouriteRepository
+            ) {
         this.consumerRepository = consumerRepository;
         this.restaurantRepository = restaurantRepository;
         this.favouriteRepository = favouriteRepository;
