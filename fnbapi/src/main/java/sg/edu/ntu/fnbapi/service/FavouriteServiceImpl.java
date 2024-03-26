@@ -17,7 +17,6 @@ import sg.edu.ntu.fnbapi.entity.Favourite;
 import sg.edu.ntu.fnbapi.entity.FavouriteKey;
 import sg.edu.ntu.fnbapi.entity.Restaurant;
 import sg.edu.ntu.fnbapi.exception.ConsumerNotFoundException;
-import sg.edu.ntu.fnbapi.exception.FavouriteNotFoundException;
 import sg.edu.ntu.fnbapi.exception.RestaurantNotFoundException;
 import sg.edu.ntu.fnbapi.repository.ConsumerRepository;
 import sg.edu.ntu.fnbapi.repository.FavouriteRepository;

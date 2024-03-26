@@ -11,7 +11,7 @@ public interface FavouriteService {
     void removeFavoriteFromConsumer(Long restaurantId, Long consumerId);
 
     // DELETE By RESTAURANT ID
-    void deleteFavourite(Long id);
+    // void deleteFavourite(Long id);
 
     // READ 1
     Favourite getFavouriteDetails(Long id, Long restaurantId);

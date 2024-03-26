@@ -42,13 +42,13 @@ public class Favourite {
     // @Column(name = "remarks")
     // private String remarks;
 
-    @JsonBackReference
+    // @JsonBackReference
     @ManyToOne(optional = false)
     @MapsId("restaurantId")
     @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
     private Restaurant restaurant;
 
-    @JsonBackReference  
+    // @JsonBackReference  
     @ManyToOne(optional = false)
     @MapsId("consumerId")
     @JoinColumn(name = "consumer_id", referencedColumnName = "id")
