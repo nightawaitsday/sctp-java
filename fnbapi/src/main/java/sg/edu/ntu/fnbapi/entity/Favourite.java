@@ -48,12 +48,11 @@ public class Favourite {
     @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
     private Restaurant restaurant;
 
-    @JsonBackReference  
+    @JsonBackReference
     @ManyToOne(optional = false)
     @MapsId("consumerId")
     @JoinColumn(name = "consumer_id", referencedColumnName = "id")
     private Consumer consumer;
-
 
     /** Create Entity **/
     public Favourite(FavouriteKey id, Consumer consumer, Restaurant restaurant) {
@@ -61,8 +60,4 @@ public class Favourite {
         this.consumer = consumer;
         this.restaurant = restaurant;
     }
-
-
-
-
 }
