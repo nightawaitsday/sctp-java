@@ -8,18 +8,12 @@ import sg.edu.ntu.fnbapi.entity.Restaurant;
 
 public interface FavouriteService {
 
-    void removeFavoriteFromConsumer(Long restaurantId, Long consumerId);
-
-    // DELETE By RESTAURANT ID
-    // void deleteFavourite(Long id);
+    // void removeFavoriteFromConsumer(Long restaurantId, Long consumerId);
 
     // READ 1
     Favourite getFavouriteDetails(Long id, Long restaurantId);
 
-
     // READ 2
-    // FavouriteRestauratList getFavouriteRestaurantList (Long id);  
+    // FavouriteRestauratList getFavouriteRestaurantList (Long id);
 
-
-    // Todo: update 
 }

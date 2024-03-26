@@ -16,9 +16,9 @@ public class FavouriteKey implements Serializable {
         // Default constructor
     }
 
-    public FavouriteKey(Long restaurantId, Long consumerId) {
-        this.restaurantId = restaurantId;
+    public FavouriteKey(Long consumerId, Long restaurantId) {
         this.consumerId = consumerId;
+        this.restaurantId = restaurantId;
     }
 
     // Getters and setters

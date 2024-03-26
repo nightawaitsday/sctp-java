@@ -10,12 +10,26 @@ import sg.edu.ntu.fnbapi.entity.Restaurant;
 public interface ConsumerService {
     // ArrayList<Consumer> searchConsumers(String firstName);
     Consumer createConsumer(Consumer consumer);
+
     Consumer getConsumer(Long id);
+
     ArrayList<Consumer> getAllConsumers();
+
     Consumer updateConsumer(Long id, Consumer consumer);
+
     void deleteConsumer(Long id);
+
     Favourite addFavouriteToConsumer(Long id, Favourite favourite);
-    
+
     // GET FAVOURITES LIST
     List<Restaurant> getFavouritesByConsumerId(Long consumerId);
-} 
+
+    /** Create Favourite **/
+    Favourite createFavourite(Long consumerId, Long restaurantId);
+
+    /** Delete Favourite **/
+    void deleteFavourite(Long consumerId, Long restaurantId);
+
+    /** Check Favourite **/
+    boolean checkFavourite(Long consumerId, Long restaurantId);
+}

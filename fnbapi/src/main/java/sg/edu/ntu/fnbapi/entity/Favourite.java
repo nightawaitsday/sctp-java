@@ -54,15 +54,10 @@ public class Favourite {
     @JoinColumn(name = "consumer_id", referencedColumnName = "id")
     private Consumer consumer;
 
-
     /** Create Entity **/
     public Favourite(FavouriteKey id, Consumer consumer, Restaurant restaurant) {
         this.id = id;
         this.consumer = consumer;
         this.restaurant = restaurant;
     }
-
-
-
-
 }
