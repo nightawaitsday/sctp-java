@@ -25,7 +25,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class Consumer {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -47,7 +47,7 @@ public class Consumer {
     private List<Favourite> favourites;
 
     public List<Favourite> getFavourites() {
-        return favourites;
+    return favourites;
     }
 
     public Consumer(String firstName, String lastName, String email) {
@@ -55,7 +55,5 @@ public class Consumer {
         this.lastName = lastName;
         this.email = email;
     }
-
-
 
 }
