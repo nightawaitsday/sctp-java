@@ -14,10 +14,4 @@ public interface RestaurantService {
 
     void deleteRestaurant(Long id);
 
-    /** Check Favourite **/
-    boolean checkFavourite(Long restaurantId, Long consumerId);
-
-    /** Create Favourite **/
-    boolean createFavourite(Long restaurantId, Long consumerId);
-
 }

@@ -74,11 +74,13 @@ public class ConsumerController {
     }
 
     // @PostMapping("/{id}/favourites")
-    // public ResponseEntity<Favourite> allFavouriteToConsumer(@PathVariable Long id, @RequestBody Favourite favourite) {
-        
-    //     Favourite newFavourite = consumerService.addFavouriteToConsumer(id, favourite);
-    //     return new ResponseEntity<>(newFavourite, HttpStatus.OK);
-        
+    // public ResponseEntity<Favourite> allFavouriteToConsumer(@PathVariable Long
+    // id, @RequestBody Favourite favourite) {
+
+    // Favourite newFavourite = consumerService.addFavouriteToConsumer(id,
+    // favourite);
+    // return new ResponseEntity<>(newFavourite, HttpStatus.OK);
+
     // }
 
     @GetMapping("/{id}/favourites")
@@ -86,6 +88,19 @@ public class ConsumerController {
         List<Restaurant> favouriteRestaurants = consumerService.getFavouritesByConsumerId(id);
         return new ResponseEntity<>(favouriteRestaurants, HttpStatus.OK);
     }
-    
-    
+
+    /** Create Favourite : Like a restaurant **/
+    @PostMapping("/{consumerId}/favourites/{restaurantId}")
+    public ResponseEntity<Favourite> createFavourite(@PathVariable Long consumerId, @PathVariable Long restaurantId) {
+        Favourite newFavourite = consumerService.createFavourite(consumerId, restaurantId);
+        return new ResponseEntity<>(newFavourite, HttpStatus.CREATED);
+    }
+
+    /** Delete Favourite : Unlike a restaurant **/
+    @DeleteMapping("/{consumerId}/favourites/{restaurantId}")
+    public ResponseEntity<Void> deleteFavourite(@PathVariable Long consumerId, @PathVariable Long restaurantId) {
+        consumerService.deleteFavourite(consumerId, restaurantId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }
