@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import sg.edu.ntu.fnbapi.entity.Consumer;
 import sg.edu.ntu.fnbapi.entity.Favourite;
 import sg.edu.ntu.fnbapi.entity.Restaurant;
@@ -37,7 +38,7 @@ public class ConsumerController {
 
     // Create
     @PostMapping("")
-    public ResponseEntity<Consumer> createConsumer(@RequestBody Consumer consumer) {
+    public ResponseEntity<Consumer> createConsumer(@Valid @RequestBody Consumer consumer) {
         Consumer newConsumer = consumerService.createConsumer(consumer);
 
         return new ResponseEntity<>(newConsumer, HttpStatus.CREATED);

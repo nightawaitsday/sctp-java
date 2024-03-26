@@ -12,7 +12,7 @@ public interface FavouriteRepository extends JpaRepository<Favourite, FavouriteK
 
   // List<Favourite> findByUserId(Long userId);
 
-  Favourite findByIdAndRestaurantId(Long id, Long restaurantId);
+//   Favourite findByIdAndRestaurantId(Long id, Long restaurantId);
 
   // FavouriteDetails getFavouriteDetails(Long id, Long restaurantId);
 
