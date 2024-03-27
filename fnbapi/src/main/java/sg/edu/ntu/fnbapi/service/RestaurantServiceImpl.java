@@ -2,6 +2,7 @@ package sg.edu.ntu.fnbapi.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import sg.edu.ntu.fnbapi.entity.Restaurant;
 import sg.edu.ntu.fnbapi.exception.RestaurantNotFoundException;
 import sg.edu.ntu.fnbapi.repository.RestaurantRepository;
@@ -52,4 +53,5 @@ public class RestaurantServiceImpl implements RestaurantService {
     public void deleteRestaurant(Long id) {
         restaurantRepository.deleteById(id);
     }
+
 }

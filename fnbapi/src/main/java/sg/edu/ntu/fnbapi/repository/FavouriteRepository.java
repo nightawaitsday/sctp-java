@@ -1,10 +1,25 @@
 package sg.edu.ntu.fnbapi.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+ import org.springframework.data.jpa.repository.JpaRepository;
 
-import sg.edu.ntu.fnbapi.entity.Favourite;
+ import jakarta.transaction.Transactional;
+ import sg.edu.ntu.fnbapi.entity.Favourite;
+ import sg.edu.ntu.fnbapi.entity.FavouriteKey;
 
-public interface FavouriteRepository extends JpaRepository<Favourite, Long>{
+ import java.util.List;
 
-    
-} 
+ public interface FavouriteRepository extends JpaRepository<Favourite, FavouriteKey> {
+
+   // List<Favourite> findByUserId(Long userId);
+
+ //   Favourite findByIdAndRestaurantId(Long id, Long restaurantId);
+
+   // FavouriteDetails getFavouriteDetails(Long id, Long restaurantId);
+
+   /** Delete by restaurant and consumer id **/
+   @Transactional
+   void deleteById(FavouriteKey favouriteKey);
+
+   /** Check whether the favourite already exists **/
+      boolean existsById(FavouriteKey favouriteKey);
+ }

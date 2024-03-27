@@ -28,6 +28,7 @@ public class RestaurantController {
 
     @GetMapping
     public ResponseEntity<List<Restaurant>> getAllRestaurants() {
+
         List<Restaurant> allRestaurants = restaurantService.getAllRestaurants();
         return new ResponseEntity<>(allRestaurants, HttpStatus.OK);
     }
@@ -49,4 +50,6 @@ public class RestaurantController {
         restaurantService.deleteRestaurant(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+
 }

@@ -15,29 +15,31 @@ public class DataLoader {
     private FavouriteRepository favouriteRepository;
 
     @Autowired
-    public DataLoader(ConsumerRepository consumerRepository, RestaurantRepository restaurantRepository, FavouriteRepository favouriteRepository) {
+    public DataLoader(ConsumerRepository consumerRepository, RestaurantRepository restaurantRepository
+            , FavouriteRepository favouriteRepository
+            ) {
         this.consumerRepository = consumerRepository;
         this.restaurantRepository = restaurantRepository;
         this.favouriteRepository = favouriteRepository;
     }
 
     @PostConstruct
-    public void loadData(){
-        //clear database first
+    public void loadData() {
+        // clear database first
         consumerRepository.deleteAll();
         restaurantRepository.deleteAll();
         favouriteRepository.deleteAll();
 
-        //load data here
+        // load data here
+
         consumerRepository.save(new Consumer("Mary", "Tan", "marytan@outlook.com"));
         consumerRepository.save(new Consumer("Jimmy", "Lee", "jimlee@gmail.com"));
         consumerRepository.save(new Consumer("John", "Lim", "jlim@gmail.com"));
 
-
-        restaurantRepository.save(new Restaurant("Pasta Bar","Italian"));
-        restaurantRepository.save(new Restaurant("The Golden Duck","Chinese"));
-        restaurantRepository.save(new Restaurant("Dim Sum Place","Chinese"));
-        restaurantRepository.save(new Restaurant("Kava","Western"));
+        restaurantRepository.save(new Restaurant("Pasta Bar", "Italian"));
+        restaurantRepository.save(new Restaurant("The Golden Duck", "Chinese"));
+        restaurantRepository.save(new Restaurant("Dim Sum Place", "Chinese"));
+        restaurantRepository.save(new Restaurant("Kava", "Western"));
 
     }
 }
