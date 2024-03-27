@@ -22,9 +22,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PutMapping;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @RestController
 @RequestMapping("/consumers")
 public class ConsumerController {
+
+    private static final Logger logger = LoggerFactory.getLogger(ConsumerController.class);
 
     private ConsumerService consumerService;
 
@@ -42,12 +47,16 @@ public class ConsumerController {
         Consumer newConsumer = consumerService.createConsumer(consumer);
 
         return new ResponseEntity<>(newConsumer, HttpStatus.CREATED);
+        
     }
 
     // Read
     @GetMapping("")
     public ResponseEntity<ArrayList<Consumer>> getAllConsumers() {
         ArrayList<Consumer> allConsumers = consumerService.getAllConsumers();
+
+        logger.info("This is an informational message.");
+        logger.error("This is an error message.");
 
         return new ResponseEntity<>(allConsumers, HttpStatus.OK);
     }
