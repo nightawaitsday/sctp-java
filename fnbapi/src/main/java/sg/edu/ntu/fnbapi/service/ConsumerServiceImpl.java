@@ -77,19 +77,6 @@ public class ConsumerServiceImpl implements ConsumerService {
     }
 
     @Override
-    public Favourite addFavouriteToConsumer(Long id, Favourite favourite) {
-        // retrieve the consumer from the database
-        Consumer selectedConsumer = consumerRepository.findById(id)
-                .orElseThrow(() -> new ConsumerNotFoundException(id));
-
-        // add the consumer to the favourite: associating relationship
-        favourite.setConsumer(selectedConsumer);
-
-        // save the favourite to the database
-        return favouriteRepository.save(favourite);
-    }
-
-    @Override
     public List<Restaurant> getFavouritesByConsumerId(Long consumerId) {
         // Fetch the Consumer entity from the database
         Consumer consumer = consumerRepository.findById(consumerId)

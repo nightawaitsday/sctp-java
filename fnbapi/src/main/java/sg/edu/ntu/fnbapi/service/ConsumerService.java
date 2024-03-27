@@ -19,8 +19,6 @@ public interface ConsumerService {
 
     void deleteConsumer(Long id);
 
-    Favourite addFavouriteToConsumer(Long id, Favourite favourite);
-
     // GET FAVOURITES LIST
     List<Restaurant> getFavouritesByConsumerId(Long consumerId);
 

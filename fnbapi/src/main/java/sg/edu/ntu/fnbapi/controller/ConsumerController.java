@@ -83,15 +83,6 @@ public class ConsumerController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    // @PostMapping("/{id}/favourites")
-    // public ResponseEntity<Favourite> allFavouriteToConsumer(@PathVariable Long
-    // id, @RequestBody Favourite favourite) {
-
-    // Favourite newFavourite = consumerService.addFavouriteToConsumer(id,
-    // favourite);
-    // return new ResponseEntity<>(newFavourite, HttpStatus.OK);
-
-    // }
 
     @GetMapping("/{id}/favourites")
     public ResponseEntity<List<Restaurant>> getFavouriteRestaurantsByConsumerId(@PathVariable Long id) {
