@@ -98,8 +98,10 @@ public class ConsumerController {
         Favourite favouriteDetails = consumerService.getFavouriteDetails(id, restaurantId);
 
         if (favouriteDetails != null) {
+            logger.info("Retrieved Restaurant: " + restaurantId + " for consumer " + id);
             return new ResponseEntity<>(favouriteDetails, HttpStatus.OK);
         } else {
+            logger.error("Failed to retrieved Restaurant: " + restaurantId + " for consumer " + id);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

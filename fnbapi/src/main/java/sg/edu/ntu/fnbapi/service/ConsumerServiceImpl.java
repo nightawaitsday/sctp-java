@@ -84,13 +84,16 @@ public class ConsumerServiceImpl implements ConsumerService {
     @Override
     public List<Restaurant> getFavouritesByConsumerId(Long consumerId) {
         // Fetch the Consumer entity from the database
+        logger.info("Get for consumer id: " + consumerId);
         Consumer consumer = consumerRepository.findById(consumerId)
                 .orElseThrow(() -> new IllegalArgumentException("Consumer not found with id: " + consumerId));
 
         // Retrieve the list of favorite restaurants associated with the Consumer
         List<Restaurant> favouriteRestaurants = new ArrayList<>();
+
         for (Favourite favourite : consumer.getFavourites()) {
             favouriteRestaurants.add(favourite.getRestaurant());
+            logger.info("Favorite: {}, Restaurant: {}", favourite, favouriteRestaurants);
         }
         return favouriteRestaurants;
 
@@ -99,7 +102,7 @@ public class ConsumerServiceImpl implements ConsumerService {
     // GET RESTAURANT FOR CONSUMER ID
     @Override
     public Favourite getFavouriteDetails(Long id, Long restaurantId) {
-
+        logger.info("Get for consumer id: " + id + " and restaurant id: " + restaurantId);
         Consumer consumer = consumerRepository.findById(id)
                 .orElseThrow(() -> new ConsumerNotFoundException(id));
 
@@ -108,6 +111,7 @@ public class ConsumerServiceImpl implements ConsumerService {
                 .orElseThrow(() -> new RestaurantNotFoundException(restaurantId));
 
         FavouriteKey favouriteKey = new FavouriteKey(id, restaurantId);
+        logger.info("Favourite key is: " + favouriteKey + ", Consumer id is: "+ id + " and restaurant id: " + restaurantId);
 
         return new Favourite(favouriteKey, consumer, restaurant);
     }
