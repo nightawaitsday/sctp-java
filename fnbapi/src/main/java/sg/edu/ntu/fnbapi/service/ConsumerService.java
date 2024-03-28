@@ -19,10 +19,12 @@ public interface ConsumerService {
 
     void deleteConsumer(Long id);
 
-    Favourite addFavouriteToConsumer(Long id, Favourite favourite);
-
     // GET FAVOURITES LIST
     List<Restaurant> getFavouritesByConsumerId(Long consumerId);
+
+    // GET REST FOR ID 
+    Favourite getFavouriteDetails(Long id, Long restaurantId);
+
 
     /** Create Favourite **/
     Favourite createFavourite(Long consumerId, Long restaurantId);

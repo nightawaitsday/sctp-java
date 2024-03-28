@@ -19,9 +19,14 @@ import sg.edu.ntu.fnbapi.repository.ConsumerRepository;
 import sg.edu.ntu.fnbapi.repository.FavouriteRepository;
 import sg.edu.ntu.fnbapi.repository.RestaurantRepository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Primary
 @Service
 public class ConsumerServiceImpl implements ConsumerService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ConsumerServiceImpl.class);
 
     private ConsumerRepository consumerRepository;
     private FavouriteRepository favouriteRepository;
@@ -77,19 +82,6 @@ public class ConsumerServiceImpl implements ConsumerService {
     }
 
     @Override
-    public Favourite addFavouriteToConsumer(Long id, Favourite favourite) {
-        // retrieve the consumer from the database
-        Consumer selectedConsumer = consumerRepository.findById(id)
-                .orElseThrow(() -> new ConsumerNotFoundException(id));
-
-        // add the consumer to the favourite: associating relationship
-        favourite.setConsumer(selectedConsumer);
-
-        // save the favourite to the database
-        return favouriteRepository.save(favourite);
-    }
-
-    @Override
     public List<Restaurant> getFavouritesByConsumerId(Long consumerId) {
         // Fetch the Consumer entity from the database
         Consumer consumer = consumerRepository.findById(consumerId)
@@ -104,9 +96,28 @@ public class ConsumerServiceImpl implements ConsumerService {
 
     }
 
+    // GET RESTAURANT FOR CONSUMER ID
+    @Override
+    public Favourite getFavouriteDetails(Long id, Long restaurantId) {
+
+        Consumer consumer = consumerRepository.findById(id)
+                .orElseThrow(() -> new ConsumerNotFoundException(id));
+
+        // Fetch the associated restaurant
+        Restaurant restaurant = restaurantRepository.findById(restaurantId)
+                .orElseThrow(() -> new RestaurantNotFoundException(restaurantId));
+
+        FavouriteKey favouriteKey = new FavouriteKey(id, restaurantId);
+
+        return new Favourite(favouriteKey, consumer, restaurant);
+    }
+
     /** Create Favourite **/
     @Override
     public Favourite createFavourite(Long consumerId, Long restaurantId) {
+        logger.info("Entering createFavourite method with consumer Id: " + consumerId + " and restaurant Id: "
+                + restaurantId);
+
         // check if this favourite exists
         if (!checkFavourite(consumerId, restaurantId)) {
             // if not liked, create
@@ -118,7 +129,10 @@ public class ConsumerServiceImpl implements ConsumerService {
             // Create Favourite Entity
             FavouriteKey favouriteKey = new FavouriteKey(consumerId, restaurantId);
             Favourite newFavourite = new Favourite(favouriteKey, consumer, restaurant);
+
+            logger.info("Calling favourite repository");
             favouriteRepository.save(newFavourite);
+            logger.info("Exisiting createFavourite method");
             return newFavourite;
         } else {
             throw new FavouriteAlreadyExistsException(consumerId, restaurantId);

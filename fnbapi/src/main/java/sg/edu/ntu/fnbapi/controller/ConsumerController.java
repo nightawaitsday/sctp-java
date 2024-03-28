@@ -22,9 +22,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PutMapping;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @RestController
 @RequestMapping("/consumers")
 public class ConsumerController {
+
+    private static final Logger logger = LoggerFactory.getLogger(ConsumerController.class);
 
     private ConsumerService consumerService;
 
@@ -42,12 +47,16 @@ public class ConsumerController {
         Consumer newConsumer = consumerService.createConsumer(consumer);
 
         return new ResponseEntity<>(newConsumer, HttpStatus.CREATED);
+        
     }
 
     // Read
     @GetMapping("")
     public ResponseEntity<ArrayList<Consumer>> getAllConsumers() {
         ArrayList<Consumer> allConsumers = consumerService.getAllConsumers();
+
+        logger.info("This is an informational message.");
+        logger.error("This is an error message.");
 
         return new ResponseEntity<>(allConsumers, HttpStatus.OK);
     }
@@ -74,21 +83,28 @@ public class ConsumerController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    // @PostMapping("/{id}/favourites")
-    // public ResponseEntity<Favourite> allFavouriteToConsumer(@PathVariable Long
-    // id, @RequestBody Favourite favourite) {
-
-    // Favourite newFavourite = consumerService.addFavouriteToConsumer(id,
-    // favourite);
-    // return new ResponseEntity<>(newFavourite, HttpStatus.OK);
-
-    // }
 
     @GetMapping("/{id}/favourites")
     public ResponseEntity<List<Restaurant>> getFavouriteRestaurantsByConsumerId(@PathVariable Long id) {
         List<Restaurant> favouriteRestaurants = consumerService.getFavouritesByConsumerId(id);
         return new ResponseEntity<>(favouriteRestaurants, HttpStatus.OK);
     }
+
+    @GetMapping("/{id}/favourites/{restaurantId}")
+    public ResponseEntity<Favourite> getFavouriteDetails(
+            @PathVariable Long id,
+            @PathVariable Long restaurantId) {
+
+        Favourite favouriteDetails = consumerService.getFavouriteDetails(id, restaurantId);
+
+        if (favouriteDetails != null) {
+            return new ResponseEntity<>(favouriteDetails, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
 
     /** Create Favourite : Like a restaurant **/
     @PostMapping("/{consumerId}/favourites/{restaurantId}")

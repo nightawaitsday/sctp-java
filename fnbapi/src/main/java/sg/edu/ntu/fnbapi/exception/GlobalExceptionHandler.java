@@ -14,10 +14,19 @@ import java.util.List;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(ConsumerNotFoundException.class)
+    public ResponseEntity<String> handleConsumerNotFoundException(ConsumerNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(FavouriteNotFoundException.class)
+    public ResponseEntity<String> handleFavouriteNotFoundException(FavouriteNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(RestaurantNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleRestaurantNotFoundException(RestaurantNotFoundException ex) {
-        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), LocalDateTime.now());
-        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    public ResponseEntity<String> handleRestaurantNotFoundException(RestaurantNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
     //Validation Exception Handler

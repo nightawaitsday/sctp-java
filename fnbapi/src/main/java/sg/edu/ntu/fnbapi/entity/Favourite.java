@@ -28,17 +28,6 @@ public class Favourite {
     @Column(name = "id")
     private FavouriteKey id;
 
-    // @Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
-    // @Column(name = "id")
-    // private Long id;
-
-    // @Column(name = "added_date")
-    // private LocalDate addedDate;
-
-    // @Column(name = "remarks")
-    // private String remarks;
-
     @ManyToOne(optional = false)
     @MapsId("restaurantId")
     @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
