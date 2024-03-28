@@ -19,9 +19,14 @@ import sg.edu.ntu.fnbapi.repository.ConsumerRepository;
 import sg.edu.ntu.fnbapi.repository.FavouriteRepository;
 import sg.edu.ntu.fnbapi.repository.RestaurantRepository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Primary
 @Service
 public class ConsumerServiceImpl implements ConsumerService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ConsumerServiceImpl.class);
 
     private ConsumerRepository consumerRepository;
     private FavouriteRepository favouriteRepository;
@@ -110,6 +115,9 @@ public class ConsumerServiceImpl implements ConsumerService {
     /** Create Favourite **/
     @Override
     public Favourite createFavourite(Long consumerId, Long restaurantId) {
+        logger.info("Entering createFavourite method with consumer Id: " + consumerId + " and restaurant Id: "
+                + restaurantId);
+
         // check if this favourite exists
         if (!checkFavourite(consumerId, restaurantId)) {
             // if not liked, create
@@ -121,7 +129,10 @@ public class ConsumerServiceImpl implements ConsumerService {
             // Create Favourite Entity
             FavouriteKey favouriteKey = new FavouriteKey(consumerId, restaurantId);
             Favourite newFavourite = new Favourite(favouriteKey, consumer, restaurant);
+
+            logger.info("Calling favourite repository");
             favouriteRepository.save(newFavourite);
+            logger.info("Exisiting createFavourite method");
             return newFavourite;
         } else {
             throw new FavouriteAlreadyExistsException(consumerId, restaurantId);

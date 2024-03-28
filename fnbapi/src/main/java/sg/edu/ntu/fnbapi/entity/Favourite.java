@@ -1,9 +1,6 @@
 package sg.edu.ntu.fnbapi.entity;
 
-import java.time.LocalDate;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -31,17 +28,25 @@ public class Favourite {
     @Column(name = "id")
     private FavouriteKey id;
 
-    @JsonBackReference
     @ManyToOne(optional = false)
     @MapsId("restaurantId")
     @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
     private Restaurant restaurant;
 
-    @JsonBackReference
     @ManyToOne(optional = false)
     @MapsId("consumerId")
     @JoinColumn(name = "consumer_id", referencedColumnName = "id")
     private Consumer consumer;
+
+    @JsonIgnore
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    @JsonIgnore
+    public Consumer getConsumer() {
+        return consumer;
+    }
 
     /** Create Entity **/
     public Favourite(FavouriteKey id, Consumer consumer, Restaurant restaurant) {
