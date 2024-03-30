@@ -55,9 +55,6 @@ public class ConsumerController {
     public ResponseEntity<ArrayList<Consumer>> getAllConsumers() {
         ArrayList<Consumer> allConsumers = consumerService.getAllConsumers();
 
-        logger.info("This is an informational message.");
-        logger.error("This is an error message.");
-
         return new ResponseEntity<>(allConsumers, HttpStatus.OK);
     }
 
@@ -72,7 +69,7 @@ public class ConsumerController {
     @PutMapping("/{id}")
     public ResponseEntity<Consumer> updateConsumer(@PathVariable Long id, @RequestBody Consumer consumer) {
         Consumer updatedConsumer = consumerService.updateConsumer(id, consumer);
-
+        logger.info("Consumer update initiated");
         return new ResponseEntity<>(updatedConsumer, HttpStatus.OK);
     }
 
@@ -80,6 +77,7 @@ public class ConsumerController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Consumer> deleteConsumer(@PathVariable Long id) {
         consumerService.deleteConsumer(id);
+        logger.info("Consumer deletion initiated");
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
