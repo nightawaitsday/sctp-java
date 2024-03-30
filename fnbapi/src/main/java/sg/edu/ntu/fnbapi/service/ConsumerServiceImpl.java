@@ -99,6 +99,8 @@ public class ConsumerServiceImpl implements ConsumerService {
 
     }
 
+    
+    
     // GET RESTAURANT FOR CONSUMER ID
     @Override
     public Favourite getFavouriteDetails(Long id, Long restaurantId) {
