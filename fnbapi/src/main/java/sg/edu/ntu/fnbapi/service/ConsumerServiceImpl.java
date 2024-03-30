@@ -99,6 +99,7 @@ public class ConsumerServiceImpl implements ConsumerService {
 
     }
 
+    
     // GET RESTAURANT FOR CONSUMER ID
     @Override
     public Favourite getFavouriteDetails(Long id, Long restaurantId) {
@@ -110,10 +111,16 @@ public class ConsumerServiceImpl implements ConsumerService {
         Restaurant restaurant = restaurantRepository.findById(restaurantId)
                 .orElseThrow(() -> new RestaurantNotFoundException(restaurantId));
 
-        FavouriteKey favouriteKey = new FavouriteKey(id, restaurantId);
-        logger.info("Favourite key is: " + favouriteKey + ", Consumer id is: "+ id + " and restaurant id: " + restaurantId);
+        logger.info("Consumer id is: "+ id + " and restaurant id: " + restaurantId);
 
-        return new Favourite(favouriteKey, consumer, restaurant);
+        if (checkFavourite(id, restaurantId)) {
+            FavouriteKey favouriteKey = new FavouriteKey(id, restaurantId);
+            return new Favourite(favouriteKey, consumer, restaurant);
+        } else {
+            FavouriteKey favouriteKey = new FavouriteKey ();
+            return new Favourite(favouriteKey, consumer, restaurant);
+        }
+
     }
 
     /** Create Favourite **/
