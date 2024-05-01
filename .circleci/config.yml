@@ -36,7 +36,8 @@ workflows:
     when:
       branches:
         only:
-          - develop
+          # - develop
+          - develop-test
 
   publish_and_deploy:
     jobs:
@@ -50,4 +51,5 @@ workflows:
     when:
       branches:
         only:
-          - develop
+          # - develop
+          - develop-test
