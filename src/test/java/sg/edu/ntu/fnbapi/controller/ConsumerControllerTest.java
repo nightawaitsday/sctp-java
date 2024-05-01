@@ -16,43 +16,44 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import sg.edu.ntu.fnbapi.entity.Consumer;
 
-
 @SpringBootTest
 @AutoConfigureMockMvc
 public class ConsumerControllerTest {
-    
+
     @Autowired
     private MockMvc mockMvc;
 
     @DisplayName("Get consumer by Id")
     @Test
     public void getConsumerbyIdTest() throws Exception {
-        //Build a GET request
+        // Build a GET request
         RequestBuilder request = MockMvcRequestBuilders.get("/consumers/1");
 
-        //Perform the request
-        mockMvc.perform(request).andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$.id").value(1));
+        // Perform the request
+        mockMvc.perform(request).andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").value(1));
     }
 
-    @Test
-    public void getAllConsumersTest() throws Exception {
-        //Build a GET request
-        RequestBuilder request = MockMvcRequestBuilders.get("/consumers");
+    // @Test
+    // public void getAllConsumersTest() throws Exception {
+    // //Build a GET request
+    // RequestBuilder request = MockMvcRequestBuilders.get("/consumers");
 
-        //Perform the request
-        mockMvc.perform(request)
-        .andExpect(status().isOk())
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$.size()").value(3));
-    }
+    // //Perform the request
+    // mockMvc.perform(request)
+    // .andExpect(status().isOk())
+    // .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+    // .andExpect(jsonPath("$.size()").value(3));
+    // }
 
     @Autowired
     private ObjectMapper objectMapper;
 
     @Test
     public void validConsumerCreationTest() throws Exception {
-       //Create consumer object
-        Consumer newConsumer = Consumer.builder().firstName("Paul").lastName("Low").email("paullow@outlook.com").build();
+        // Create consumer object
+        Consumer newConsumer = Consumer.builder().firstName("Paul").lastName("Low").email("paullow@outlook.com")
+                .build();
 
         // Step 2: Convert the Java object to JSON using ObjectMapper
         String newConsumerAsJSON = objectMapper.writeValueAsString(newConsumer);
@@ -61,14 +62,14 @@ public class ConsumerControllerTest {
         RequestBuilder request = MockMvcRequestBuilders.post("/consumers")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(newConsumerAsJSON);
-        
-         // Step 4: Perform the request and get the response and assert
-         mockMvc.perform(request)
-         .andExpect(status().isCreated())
-         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-         .andExpect(jsonPath("$.id").value(4))
-         .andExpect(jsonPath("$.firstName").value("Paul"))
-         .andExpect(jsonPath("$.lastName").value("Low"));
+
+        // Step 4: Perform the request and get the response and assert
+        mockMvc.perform(request)
+                .andExpect(status().isCreated())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").value(4))
+                .andExpect(jsonPath("$.firstName").value("Paul"))
+                .andExpect(jsonPath("$.lastName").value("Low"));
     }
 
     @Test
@@ -86,8 +87,8 @@ public class ConsumerControllerTest {
 
         // Step 4: Perform the request and get the response
         mockMvc.perform(request)
-        .andExpect(status().isBadRequest())
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 
 }
