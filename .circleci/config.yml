@@ -16,9 +16,37 @@ jobs:
           name: Test
           command: mvn test
 
-        # Add deployment steps here, such as deploying to a cloud provider or container registry
+  publish:
+    executor: docker/docker
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build and push Docker image
+          command: |
+            docker-compose build
+            docker-compose up -d
 
 workflows:
+  version: 2
   simple_workflow:
     jobs:
       - build-and-test
+    when:
+      branches:
+        only:
+          - develop
+
+  publish_and_deploy:
+    jobs:
+      - build-and-test
+      - publish:
+          requires:
+            - build-and-test
+      # - deploy:
+      #     requires:
+      #       - publish
+    when:
+      branches:
+        only:
+          - release
