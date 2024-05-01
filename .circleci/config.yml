@@ -36,6 +36,7 @@ workflows:
       branches:
         only:
           - develop
+          - main
 
   publish_and_deploy:
     jobs:
@@ -49,4 +50,4 @@ workflows:
     when:
       branches:
         only:
-          - main
+          - release
