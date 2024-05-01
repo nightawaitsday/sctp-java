@@ -43,7 +43,10 @@ workflows:
       - publish:
           requires:
             - build-and-test
+      # - deploy:
+      #     requires:
+      #       - publish
     when:
       branches:
         only:
-          - develop
+          - release
