@@ -1,53 +1,24 @@
 version: 2.1
+orbs:
+  docker: circleci/docker@2.1.4
+  heroku: circleci/heroku@2.0.0
 
 jobs:
-  build:
+  build-and-test:
     docker:
-      - image: circleci/openjdk:11.0-jdk
-
+      - image: cimg/openjdk:19.0.1
     steps:
       - checkout
-
       - run:
-          name: Set up JDK 11
-          command: |
-            sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk-11.0/bin/java 1
-            sudo update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/jdk-11.0/bin/javac 1
-
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-
+          name: Build
+          command: mvn -B -DskipTests clean package
       - run:
-          name: Install dependencies
-          command: mvn dependency:go-offline
+          name: Test
+          command: mvn test
 
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run:
-          name: Build project
-          command: mvn clean install
-
-  deploy:
-    docker:
-      - image: circleci/openjdk:11.0-jre
-
-    steps:
-      - checkout
-
-      # Add deployment steps here, such as deploying to a cloud provider or container registry
+        # Add deployment steps here, such as deploying to a cloud provider or container registry
 
 workflows:
-  version: 2
-  build-and-deploy:
+  simple_workflow:
     jobs:
-      - build
-      - deploy:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
+      - build-and-test
