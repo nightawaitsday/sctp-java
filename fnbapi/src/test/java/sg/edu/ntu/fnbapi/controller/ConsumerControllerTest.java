@@ -43,7 +43,7 @@ public class ConsumerControllerTest {
         mockMvc.perform(request)
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$.size()").value(3));
+        .andExpect(jsonPath("$.size()").value(4));
     }
 
     @Autowired
