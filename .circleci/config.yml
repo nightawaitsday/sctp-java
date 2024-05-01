@@ -16,17 +16,18 @@ jobs:
           name: Test
           command: mvn test
 
-    publish:
-      executor: docker/docker
-      steps:
-        - checkout
-        - setup_remote_docker
-        - run:
-            name: Build and push Docker image
-            command: |
-              docker compose up --build
+  publish:
+    executor: docker/docker
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build and push Docker image
+          command: |
+            docker compose up --build
 
 workflows:
+  version: 2
   simple_workflow:
     jobs:
       - build-and-test
