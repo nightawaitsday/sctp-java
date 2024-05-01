@@ -28,6 +28,20 @@ jobs:
             docker-compose build
             docker-compose up -d
 
+  deploy:
+  docker:
+    - image: cimg/openjdk:19.0.1
+  steps:
+    - setup_remote_docker
+    - heroku/install
+    - checkout
+    - run:
+        name: Heroku Container Push
+        command: |
+          heroku container:login
+          heroku container:push web -a sctp-java
+          heroku container:release web -a sctp-java
+
 workflows:
   version: 2
   simple_workflow:
@@ -44,10 +58,10 @@ workflows:
       - publish:
           requires:
             - build-and-test
-      # - deploy:
-      #     requires:
-      #       - publish
+      - deploy:
+          requires:
+            - publish
     when:
       branches:
         only:
-          - develop
+          - release
