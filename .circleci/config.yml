@@ -36,6 +36,7 @@ workflows:
       branches:
         only:
           - main
+          - develop
 
   publish_and_deploy:
     jobs:
