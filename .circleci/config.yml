@@ -2,6 +2,8 @@ version: 2.1
 orbs:
   docker: circleci/docker@2.1.4
   heroku: circleci/heroku@2.0.0
+  # SCAN ORB 
+  synk: snyk/snyk@1.5.0
 
 jobs:
   build-and-test:
@@ -48,11 +50,40 @@ jobs:
             heroku container:push web -a sctp-java
             heroku container:release web -a sctp-java
 
+# SCAN PART 
+  vulnerability-scan: 
+    # docker: 
+    #   - image: cimg/openjdk:19.0.1
+    # environment: #the env allows us to creat an env for the job and allows us to create custom env variables 
+    #   IMAGE_NAME: ceciliakhiew/sctp-java-devops:latest 
+    # steps: 
+    #   - checkout 
+    #   - setup_remote_docker 
+    #   - docker/check 
+    #   - run: docker build -t $IMAGE_NAME  . #$_IMAGE_NAME gets the valie from the env we created above
+    #   - snyk/scan: 
+    #       docker-image-name: $IMAGE_NAME 
+
+    docker: 
+      - image: cimg/openjdk:19.0.1
+    steps: 
+      - checkout 
+      - setup_remote_docker 
+      - run: docker pull ceciliakhiew/sctp-java-devops:latest  # Pull the already built image
+      - snyk/scan: 
+          docker-image-name: ceciliakhiew/sctp-java-devops:latest 
+# SCAN PART END 2 
+
 workflows:
   version: 2
   publish_and_deploy:
     jobs:
       - build-and-test
+      # SCAN START
+      - vulnerability-scan:  # Run vulnerability scan in parallel
+          requires:
+            - build-and-test
+      #SCAN END 
       - publish:
           requires:
             - build-and-test
