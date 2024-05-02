@@ -9,3 +9,4 @@ FROM eclipse-temurin:17
 ENV PORT=8081
 COPY --from=build /app/target/fnbapi-0.0.1-SNAPSHOT.jar /app.jar
 ENTRYPOINT ["java", "-jar", "/app.jar"]
+
