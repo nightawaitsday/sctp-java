@@ -50,14 +50,6 @@ jobs:
 
 workflows:
   version: 2
-  simple_workflow:
-    jobs:
-      - build-and-test
-    when:
-      branches:
-        only:
-          - develop
-
   publish_and_deploy:
     jobs:
       - build-and-test
