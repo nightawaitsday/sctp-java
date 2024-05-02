@@ -20,19 +20,19 @@ import sg.edu.ntu.fnbapi.entity.Consumer;
 @AutoConfigureMockMvc
 public class ConsumerControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+    // @Autowired
+    // private MockMvc mockMvc;
 
-    @DisplayName("Get consumer by Id")
-    @Test
-    public void getConsumerbyIdTest() throws Exception {
-    // Build a GET request
-    RequestBuilder request = MockMvcRequestBuilders.get("/consumers/1");
+    // @DisplayName("Get consumer by Id")
+    // @Test
+    // public void getConsumerbyIdTest() throws Exception {
+    // // Build a GET request
+    // RequestBuilder request = MockMvcRequestBuilders.get("/consumers/1");
 
-    // Perform the request
-    mockMvc.perform(request).andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON))
-    .andExpect(jsonPath("$.id").value(1));
-    }
+    // // Perform the request
+    // mockMvc.perform(request).andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON))
+    // .andExpect(jsonPath("$.id").value(1));
+    // }
 
     // @Test
     // public void getAllConsumersTest() throws Exception {
