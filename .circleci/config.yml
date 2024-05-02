@@ -70,4 +70,4 @@ workflows:
     when:
       branches:
         only:
-          - develop
+          - release
