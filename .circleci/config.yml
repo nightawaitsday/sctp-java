@@ -22,9 +22,6 @@ jobs:
     steps:
       - setup_remote_docker
       - checkout
-      - run:
-          name: Authenticate Docker
-          command: echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
       - docker/check
       # - run:
       #     name: Build and push Docker image
