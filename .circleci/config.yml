@@ -20,13 +20,20 @@ jobs:
   publish:
     executor: docker/docker
     steps:
-      - checkout
       - setup_remote_docker
-      - run:
-          name: Build and push Docker image
-          command: |
-            docker-compose build
-            docker-compose up -d
+      - checkout
+      - docker/check
+      # - run:
+      #     name: Build and push Docker image
+      #     command: |
+      #       docker-compose build
+      #       docker-compose up -d
+      - docker/build:
+          image: ceciliakhiew/sctp-java-devops
+          tag: latest
+      - docker/push:
+          image: ceciliakhiew/sctp-java-devops
+          tag: latest
 
 workflows:
   version: 2
