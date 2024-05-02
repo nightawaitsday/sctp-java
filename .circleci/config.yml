@@ -57,17 +57,3 @@ workflows:
       branches:
         only:
           - develop
-
-  publish_and_deploy:
-    jobs:
-      - build-and-test
-      - publish:
-          requires:
-            - build-and-test
-      - deploy:
-          requires:
-            - publish
-    when:
-      branches:
-        only:
-          - release
