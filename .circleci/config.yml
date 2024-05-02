@@ -4,10 +4,10 @@ orbs:
   heroku: circleci/heroku@2.0.0
 
 jobs:
-  working_directory: ../fnbapi
   build-and-test:
     docker:
       - image: cimg/openjdk:19.0.1
+    working_directory: ../fnbapi
     steps:
       - checkout
       - run:
@@ -20,13 +20,19 @@ jobs:
   publish:
     executor: docker/docker
     steps:
-      - checkout
       - setup_remote_docker
+      - checkout
+      - docker/check
+      # - run:
+      #     name: Build and push Docker image
+      #     command: |
+      #       docker-compose build
+      #       docker-compose up -d
       - run:
-          name: Build and push Docker image
+          name: Build and push Docker image to Docker Hub
           command: |
-            docker-compose build
-            docker-compose up -d
+            docker build -t ceciliakhiew/sctp-java-devops:latest .
+            docker push ceciliakhiew/sctp-java-devops:latest
 
   deploy:
     docker:
