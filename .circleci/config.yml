@@ -23,6 +23,8 @@ jobs:
       - setup_remote_docker
       - checkout
       - docker/check
+        docker-username: DOCKER_HUB_USERNAME
+        docker-password: DOCKER_HUB_PASSWORD
       # - run:
       #     name: Build and push Docker image
       #     command: |
