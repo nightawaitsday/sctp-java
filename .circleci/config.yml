@@ -72,7 +72,7 @@ jobs:
       - run: docker pull ceciliakhiew/sctp-java-devops:latest  # Pull the already built image
       - snyk/scan: 
           docker-image-name: ceciliakhiew/sctp-java-devops:latest 
-          continue-on-error: true
+          
 # SCAN PART END 2 
 
 workflows:
