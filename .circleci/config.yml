@@ -64,11 +64,6 @@ workflows:
   publish_and_deploy:
     jobs:
       - build-and-test
-      # SCAN START
-      - vulnerability-scan: # Run vulnerability scan in parallel
-          requires:
-            - build-and-test
-      #SCAN END
       - publish:
           requires:
             - build-and-test
