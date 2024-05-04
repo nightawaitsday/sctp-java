@@ -67,9 +67,17 @@ workflows:
       - publish:
           requires:
             - build-and-test
+          filters:
+            branches:
+              only:
+                - release
       - deploy:
           requires:
             - publish
+          filters:
+            branches:
+              only:
+                - release
     when:
       branches:
         only:
