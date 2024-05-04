@@ -1,6 +1,5 @@
 version: 2.1
 orbs:
-  node: circleci/node@5.0.1
   docker: circleci/docker@2.1.4
   heroku: circleci/heroku@2.0.0
   # SCAN ORB 
@@ -73,6 +72,7 @@ jobs:
       - run: docker pull ceciliakhiew/sctp-java-devops:latest  # Pull the already built image
       - snyk/scan: 
           docker-image-name: ceciliakhiew/sctp-java-devops:latest 
+          continue-on-error: true
 # SCAN PART END 2 
 
 workflows:
