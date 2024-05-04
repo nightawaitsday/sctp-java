@@ -61,9 +61,9 @@ jobs:
       - setup_remote_docker 
       - docker/check 
       - run: docker build -t $IMAGE_NAME  . #$_IMAGE_NAME gets the valie from the env we created above
+      - run: snyk test --docker $IMAGE_NAME --severity-threshold=low || true
       - snyk/scan: 
           docker-image-name: $IMAGE_NAME 
-    continue-on-error: true
 
     # docker: 
     #   - image: cimg/openjdk:19.0.1
