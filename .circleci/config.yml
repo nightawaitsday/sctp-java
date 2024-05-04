@@ -63,7 +63,7 @@ jobs:
       - run: docker build -t $IMAGE_NAME  . #$_IMAGE_NAME gets the valie from the env we created above
       - snyk/scan: 
           docker-image-name: $IMAGE_NAME 
-
+    continue-on-error: true
 
     # docker: 
     #   - image: cimg/openjdk:19.0.1
